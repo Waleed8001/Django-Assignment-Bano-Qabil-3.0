@@ -1,0 +1,176 @@
+Task 1: Basic Bill Splitting
+Create an endpoint to split a bill evenly among a group of users.
+
+Input (JSON format):-
+{
+  "person": 4,
+  "total": 1200
+}
+
+Output (JSON format):-
+{
+  "split": 300.0
+}
+
+----------------------------------------------------------------------------------------------
+Task 2: Uneven Bill Splitting
+Create an endpoint to split a bill unevenly based on individual contributions.
+
+Input (JSON format):-
+{
+  "total": 2000,
+  "person": [
+    {
+      "name": "Ahmed",
+      "contribution": 0
+    },
+    {
+      "name": "Mike",
+      "contribution": 300
+    },
+    {
+      "name": "John",
+      "contribution": 800
+    },
+    {
+      "name": "Hasan",
+      "contribution": 400
+    }
+  ]
+}
+
+Output (JSON format):-
+{
+  "split": {
+    "Ahmed": -500.0,
+    "Mike": -200.0,
+    "John": 300.0,
+    "Hasan": -100.0
+  }
+}
+
+----------------------------------------------------------------------------------------------
+Task 3: Including Tip and Tax
+Create an endpoint to split a bill including tip and tax evenly among users.
+
+Input (JSON format):- 
+{
+  "total": 4000,
+  "totalperson": 7,
+  "tip": 5,
+  "tax": 30
+}
+
+Output (JSON format):-
+{
+  "split": 771.4285714285714
+}
+
+----------------------------------------------------------------------------------------------
+Task 4: Handling Discounts
+Create an endpoint to apply a discount to the total bill before splitting it evenly among users.
+
+Input (JSON format):-
+{
+  "total": 5000,
+  "totalpeople": 2,
+  "discount": 20
+}
+
+Output (JSON format):-
+{
+  "split with discount": 2000.0
+}
+
+----------------------------------------------------------------------------------------------
+Task 5: Advanced Bill Splitting with Shared Items
+Create an endpoint to split a bill where some items are shared among certain users.
+
+Input (JSON format):-
+{
+  "tip":5,
+  "tax":20,
+  "person": [
+    {
+      "name": "saad",
+      "contribution": 300,
+      "item": "pizza"
+    },
+    {
+      "name": "hammad",
+      "contribution": 850,
+      "item": "pizza"
+    },
+    {
+      "name": "ghafoor",
+      "contribution": 100,
+      "item": "pizza"
+    },
+    {
+      "name": "umar",
+      "contribution": 1400,
+      "item": "burger"
+    },
+    {
+      "name": "Ahmed",
+      "contribution": 1100,
+      "item": "burger"
+    },
+    {
+      "name": "hammad",
+      "contribution": 2000,
+      "item": "Sandwich"
+    },
+    {
+      "name": "ghafoor",
+      "contribution": 100,
+      "item": "Sandwich"
+    },
+    {
+      "name": "umar",
+      "contribution": 300,
+      "item": "Sandwich"
+    },
+    {
+      "name": "Ahmed",
+      "contribution": 100,
+      "item": "Sandwich"
+    }
+  ],
+  "items": [
+    {
+      "buy": "pizza",
+      "price": 1000
+    },
+    {
+      "buy": "burger",
+      "price": 2000
+    },
+    {
+      "buy": "Sandwich",
+      "price": 2500
+    }
+  ]
+}
+
+Output (JSON format):-
+{
+  "Total_amount_after_adding_tip_and_tax_and_prices_of_all_items": 6875.0,
+  "Split Bill": {
+    "Bill Splitting for pizza": {
+      "saad": 116.66666666666669,
+      "hammad": -433.3333333333333,
+      "ghafoor": 316.6666666666667
+    },
+    "Bill Splitting for burger": {
+      "umar": -150.0,
+      "Ahmed": 150.0
+    },
+    "Bill Splitting for Sandwich": {
+      "hammad": -1218.75,
+      "ghafoor": 681.25,
+      "umar": 481.25,
+      "Ahmed": 681.25
+    }
+  }
+}
