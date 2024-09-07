@@ -74,8 +74,10 @@ def split_with_shareditems(request):
         amount += new_tip + new_tax
 
         people = []
+        list_item = []
         count = 0
         split = {}
+        items_dict = {}
 
         # For checking what each person eat and how many price of that item and calculate how many person eat same thing.
         for item in items:
@@ -84,18 +86,27 @@ def split_with_shareditems(request):
                     total = item['price']
                     count = count + 1
                     people.append(persons)
+            list_item.append(item['buy'])
 
             # Calculate split for each person including tip and tax according to their item prices.
             new_tip = total * tip / 100
             new_tax = total * tax / 100
             total += new_tip + new_tax
             new_total = total / count
-            for persons2 in people:
-                split[persons2['name']] = new_total - persons2['contribution']
+            
+            for itemname in people:
+                items_dict[itemname['name']] = new_total - itemname['contribution']
+                
+            # Splitting Bill for every person for the certain items
+            for name in list_item:
+                split[f"Bill Splitting for {name}"] = items_dict
+            
+            list_item = []
+            items_dict = {}
             people = []
             total = 0    
             count = 0
-        return JsonResponse({'Total_amount_after_adding_tip_and_tax_and_prices_of_all_items':amount,'split':split})
+        return JsonResponse({'Total_amount_after_adding_tip_and_tax_and_prices_of_all_items':amount,'Split Bill':split})
 
 # For last function (split_with_shareditems) Please enter input in this form:
 # {
@@ -126,6 +137,26 @@ def split_with_shareditems(request):
 #       "name": "Ahmed",
 #       "contribution": 1100,
 #       "item": "burger"
+#     },
+#     {
+#       "name": "hammad",
+#       "contribution": 2000,
+#       "item": "Sandwich"
+#     },
+#     {
+#       "name": "ghafoor",
+#       "contribution": 100,
+#       "item": "Sandwich"
+#     },
+#     {
+#       "name": "umar",
+#       "contribution": 300,
+#       "item": "Sandwich"
+#     },
+#     {
+#       "name": "Ahmed",
+#       "contribution": 100,
+#       "item": "Sandwich"
 #     }
 #   ],
 #   "items": [
@@ -136,6 +167,10 @@ def split_with_shareditems(request):
 #     {
 #       "buy": "burger",
 #       "price": 2000
+#     },
+#     {
+#       "buy": "Sandwich",
+#       "price": 2500
 #     }
 #   ]
 # }
@@ -143,12 +178,22 @@ def split_with_shareditems(request):
 # Expected Output:
 
 # {
-#   "Total_amount_after_adding_tip_and_tax_and_prices_of_all_items": 3750.0,
-#   "split": {
-#     "saad": 216.66666666666669,
-#     "hammad": -433.3333333333333,
-#     "ghafoor": 316.6666666666667,
-#     "umar": -150.0,
-#     "Ahmed": 150.0
+#   "Total_amount_after_adding_tip_and_tax_and_prices_of_all_items": 6875.0,
+#   "Split Bill": {
+#     "Bill Splitting for pizza": {
+#       "saad": 116.66666666666669,
+#       "hammad": -433.3333333333333,
+#       "ghafoor": 316.6666666666667
+#     },
+#     "Bill Splitting for burger": {
+#       "umar": -150.0,
+#       "Ahmed": 150.0
+#     },
+#     "Bill Splitting for Sandwich": {
+#       "hammad": -1218.75,
+#       "ghafoor": 681.25,
+#       "umar": 481.25,
+#       "Ahmed": 681.25
+#     }
 #   }
 # }
