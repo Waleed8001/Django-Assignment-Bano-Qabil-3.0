@@ -4,6 +4,8 @@ import json
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt, csrf_protect
 
+# Task 1: Basic Bill Splitting
+# Create an endpoint to split a bill evenly among a group of users.
 @csrf_exempt
 def split_evenly(request):
     if request.method == 'POST':
@@ -13,6 +15,8 @@ def split_evenly(request):
         splitevenly = total/person
         return JsonResponse({'split':splitevenly})
     
+# Task 2: Uneven Bill Splitting
+# Create an endpoint to split a bill unevenly based on individual contributions.    
 @csrf_exempt
 def split_unevenly(request):
     if request.method == 'POST':
@@ -24,7 +28,9 @@ def split_unevenly(request):
         for people in person:
             unevenlysplit[people["name"]] = people["contribution"] - split
         return JsonResponse({'split':unevenlysplit})
-    
+
+# Task 3: Including Tip and Tax
+# Create an endpoint to split a bill including tip and tax evenly among users.    
 @csrf_exempt
 def split_including_tip_and_tax(request):
     if request.method == 'POST':
@@ -39,6 +45,8 @@ def split_including_tip_and_tax(request):
         splitwithtipandtax = total/totalperson
         return JsonResponse({'split':splitwithtipandtax})
 
+# Task 4: Handling Discounts
+# Create an endpoint to apply a discount to the total bill before splitting it evenly among users.
 @csrf_exempt
 def split_with_discount(request):
     if request.method == 'POST':
@@ -50,6 +58,8 @@ def split_with_discount(request):
         splitwithdiscount = new_discount / totalpeople
         return JsonResponse({'split with discount': splitwithdiscount})
     
+# Task 5: Advanced Bill Splitting with Shared Items
+# Create an endpoint to split a bill where some items are shared among certain users.
 @csrf_exempt
 def split_with_shareditems(request):
     if request.method == 'POST':
