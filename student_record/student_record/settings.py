@@ -13,10 +13,10 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 from pathlib import Path
 from mongoengine import connect
 
-# connect("mongodb+srv://waleedkamal801:waleed801@waleed801.3jfsz.mongodb.net/?retryWrites=true&w=majority&appName=Waleed801")
+# connect("mongodb+srv://waleedkamal801:<password>@waleed801.3jfsz.mongodb.net/?retryWrites=true&w=majority&appName=Waleed801")
 
 # from mongoengine import connect
-uri = "mongodb+srv://waleedkamal801:waleed801@waleed801.3jfsz.mongodb.net/"
+uri = "mongodb+srv://waleedkamal801:<password>@waleed801.3jfsz.mongodb.net/"
 db_name = "Waleed"
 connect(
     db=db_name,
